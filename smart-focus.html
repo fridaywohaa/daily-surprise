@@ -256,7 +256,8 @@
                 { id: "investment", name: "Investment", emoji: "💰", priority: "medium" },
                 { id: "smarthome", name: "Smart Home", emoji: "🏠", priority: "medium" },
                 { id: "arttoy", name: "Art Toy", emoji: "🎨", priority: "low" },
-                { id: "safety", name: "Financial Safety", emoji: "🔐", priority: "high" }
+                { id: "safety", name: "Financial Safety", emoji: "🔐", priority: "high" },
+                { id: "land", name: "HK Property", emoji: "🏢", priority: "low" }
             ],
             interests: ["AI", "Architecture", "Design", "Smart Home", "Investing", "Dogs"],
             workStyle: "Direct, efficient, prefers local control",
@@ -287,7 +288,13 @@
                 { title: "HA Automation", desc: "你有HA setup，整一個新automation?", action: "Create new automation", tags: ["goal", "learning"] },
                 { title: "Dashboard Update", desc: "你既dashboard可以加新widget", action: "Add widget", tags: ["reminder"] },
                 { title: "Voice Command Test", desc: "Test下你既voice commands", action: "Try a command", tags: ["reminder"] },
-                { title: "New Device", desc: "研究下可以加入既新智能設備", action: "Research devices", tags: ["learning"] }
+                { title: "New Device", desc: "研究下可以加入既新智能設備", action: "Research devices", tags: ["learning"] },
+                { title: "ZHA Setup", desc: "你有CC2652P coordinator，setting up ZHA?", action: "Check ZHA integration", tags: ["goal"] },
+                { title: "USB Hub", desc: "CH340C USB coordinator需要powered hub", action: "Research powered USB hubs", tags: ["learning"] }
+            ],
+            land: [
+                { title: "Property Research", desc: "你有`/land` command可以查香港樓", action: "Try /land command", tags: ["learning"] },
+                { title: "Land Data Analysis", desc: "睇下你可以點用land data做分析", action: "Explore data fields", tags: ["learning"] }
             ],
             arttoy: [
                 { title: "Character Development", desc: "你有2個characters，develop多啲?", action: "Sketch new design", tags: ["goal", "learning"] },
