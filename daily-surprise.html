@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>每日小確幸 ✨</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 400px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 32px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .header h1 {
+            color: #fff;
+            font-size: 28px;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+        
+        .date {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+        
+        .surprise-box {
+            background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            background-size: 300% 300%;
+            animation: gradient 4s ease infinite;
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            margin-bottom: 24px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .surprise-box:hover {
+            transform: scale(1.02);
+        }
+        
+        .surprise-box.revealed {
+            background: rgba(255, 255, 255, 0.15);
+            animation: none;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .click-hint {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .surprise-content {
+            display: none;
+        }
+        
+        .surprise-content.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .emoji {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+        
+        .message {
+            color: #fff;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        
+        .category {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .refresh-btn {
+            display: none;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: transform 0.2s ease;
+        }
+        
+        .refresh-btn.show {
+            display: block;
+        }
+        
+        .refresh-btn:hover {
+            transform: scale(1.02);
+        }
+        
+        .mood-tracker {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .mood-tracker h3 {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        
+        .mood-options {
+            display: flex;
+            justify-content: space-around;
+            gap: 8px;
+        }
+        
+        .mood-btn {
+            flex: 1;
+            padding: 12px 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .mood-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .mood-btn.selected {
+            border-color: #feca57;
+            background: rgba(254, 202, 87, 0.2);
+        }
+        
+        .mood-emoji {
+            font-size: 24px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .mood-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 11px;
+        }
+        
+        .streak {
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+        }
+        
+        .streak strong {
+            color: #feca57;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✨ 每日小確幸</h1>
+            <div class="date" id="date"></div>
+        </div>
+        
+        <div class="surprise-box" id="surpriseBox" onclick="revealSurprise()">
+            <div class="click-hint" id="clickHint">Click me! 🎁</div>
+            <div class="surprise-content" id="surpriseContent">
+                <div class="emoji" id="emoji"></div>
+                <div class="message" id="message"></div>
+                <span class="category" id="category"></span>
+            </div>
+        </div>
+        
+        <button class="refresh-btn" id="refreshBtn" onclick="newSurprise()">New Surprise 🔄</button>
+        
+        <div class="mood-tracker">
+            <h3>今日心情點呀？</h3>
+            <div class="mood-options">
+                <button class="mood-btn" data-mood="happy" onclick="selectMood(this)">
+                    <span class="mood-emoji">😄</span>
+                    <span class="mood-label">勁開心</span>
+                </button>
+                <button class="mood-btn" data-mood="good" onclick="selectMood(this)">
+                    <span class="mood-emoji">🙂</span>
+                    <span class="mood-label">OK啦</span>
+                </button>
+                <button class="mood-btn" data-mood="meh" onclick="selectMood(this)">
+                    <span class="mood-emoji">😐</span>
+                    <span class="mood-label">一般</span>
+                </button>
+                <button class="mood-btn" data-mood="tired" onclick="selectMood(this)">
+                    <span class="mood-emoji">😴</span>
+                    <span class="mood-label">幾攰</span>
+                </button>
+                <button class="mood-btn" data-mood="sad" onclick="selectMood(this)">
+                    <span class="mood-emoji">😢</span>
+                    <span class="mood-label">唔開心</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="streak">
+            已經連續 <strong id="streak">0</strong> 日開啟小確幸 💪
+        </div>
+    </div>
+
+    <script>
+        const surprises = [
+            { emoji: "💡", message: "今日試下行一條新路返工，可能會發現新嘢！", category: "挑戰" },
+            { emoji: "☕", message: "起身沖杯咖啡或茶，唔好齋坐，郁手郁腳先有靈感！", category: "小任務" },
+            { emoji: "📱", message: "熄機15分鐘，畀啲時間自己同自己相處。", category: "放鬆" },
+            { emoji: "🎵", message: "聽一首你最鍾意既歌，然後loop三次。", category: "音樂" },
+            { emoji: "💪", message: "今日對住鏡笑三分鐘，傻下唔洗錢。", category: "健康" },
+            { emoji: "🌱", message: "如果屋企有植物，澆下水啦，佢都想飲水。", category: "小任務" },
+            { emoji: "📝", message: "寫低三樣今日你要感激既嘢。", category: "感恩" },
+            { emoji: "🚶", message: "食完晏出去行10分鐘，唞下啲氣。", category: "運動" },
+            { emoji: "😴", message: "今晚早瞓半粒鐘，身體會感激你。", category: "健康" },
+            { emoji: "🤝", message: "send message畀一個耐無聯繫既朋友，問下佢近況。", category: "連結" },
+            { emoji: "🎯", message: "今日Set一個得一日既小目標，完成佢！", category: "挑戰" },
+            { emoji: "😂", message: "笑一笑十年少：你今日笑咗未？", category: "提醒" },
+            { emoji: "💭", message: "諗下你最想實現既一樣嘢，寫低佢。", category: "反思" },
+            { emoji: "🍎", message: "食多啲蔬菜水果，對自己身體好啲。", category: "健康" },
+            { emoji: "🧘", message: "深呼吸三次，一次唔洗30秒。", category: "放鬆" },
+            { emoji: "📚", message: "讀10頁書，知識係日積月累既。", category: "成長" },
+            { emoji: "🎨", message: "整啲嘢 - 畫畫、寫字、整手工都得，創作令人快樂。", category: "創作" },
+            { emoji: "🌙", message: "睡前寫低今日發生既一件好事。", category: "感恩" },
+            { emoji: "💪", message: "讚多啲人，特別係你自己。你好叻！", category: "鼓勵" },
+            { emoji: "⏰", message: "今日做一樣你一直拖緊既嘢，唔好再等！", category: "挑戰" },
+            { emoji: "🏃", message: "郁動下身體，就算只係伸懶腰都好。", category: "運動" },
+            { emoji: "🎭", message: "睇或者聽啲令你開心既嘢，唔好畀負能量入侵。", category: "娛樂" },
+            { emoji: "💡", message: "你既存在已經好重要，記住呢點。", category: "鼓勵" },
+            { emoji: "🌈", message: "雨過天晴，最難既時刻就快過去。", category: "鼓勵" },
+            { emoji: "🔔", message: "多謝你每日既陪伴，你做得好好！", category: "多謝" }
+        ];
+
+        const jokes = [
+            { emoji: "🤣", message: "點解程序員將老婆叫作「死 Bug」？因為永遠都fix唔晒！", category: "笑話" },
+            { emoji: "😹", message: "程式員既浪漫：Baby，我愛你就像Java愛JavaScript一樣——咁多年都話冇關係，但人人都會撈亂佢。", category: "笑話" },
+            { emoji: "💀", message: "IT人既口頭禪：「我restart下先」。就係同你上床前既「我去洗手間先」一樣，總之就係一去不返。", category: "笑話" },
+            { emoji: "😂", message: "問：點樣令IT人發達？答：唔好撈IT，去炒散。", category: "笑話" },
+            { emoji: "🤣", message: "我既時間管理技巧：三分鐘既Google = 三個鐘頭既YouTube。", category: "笑話" }
+        ];
+
+        const facts = [
+            { emoji: "🧠", message: "原來笑可以提升免疫力，等於做咗10分鐘運動！", category: "Fun Fact" },
+            { emoji: "🌊", message: "香港既郊野公園面積多過你想像，占全港面積既4成！", category: "Fun Fact" },
+            { emoji: "🐕", message: "狗可以聞到你既情緒變化，所以唔開心既时候佢會陪你好耐。", category: "Fun Fact" },
+            { emoji: "⏰", message: "研究顯示早起既人其實唔一定幾勤力，佢哋只係失眠。", category: "Fun Fact" },
+            { emoji: "🎵", message: "聽你鍾意既歌可以令止痛藥更有效！", category: "Fun Fact" }
+        ];
+
+        const encouragements = [
+            { emoji: "⭐", message: "你今日既努力唔會白費，相信自己！", category: "鼓勵" },
+            { emoji: "🌟", message: "每一日都係新既開始，把握今日！", category: "鼓勵" },
+            { emoji: "💫", message: "你既價值唔取決於其他人既眼光。", category: "鼓勵" },
+            { emoji: "🏆", message: "小步前進都好過原地踏步，整咗先講！", category: "鼓勵" },
+            { emoji: "🌈", message: "無論今日點，明日都會更好。", category: "鼓勵" }
+        ];
+
+        const allContent = [...surprises, ...jokes, ...facts, ...encouragements];
+
+        function getDate() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            return now.toLocaleDateString('zh-HK', options);
+        }
+
+        function getRandomItem(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function revealSurprise() {
+            const box = document.getElementById('surpriseBox');
+            const hint = document.getElementById('clickHint');
+            const content = document.getElementById('surpriseContent');
+            const refreshBtn = document.getElementById('refreshBtn');
+            
+            if (!box.classList.contains('revealed')) {
+                box.classList.add('revealed');
+                hint.style.display = 'none';
+                content.classList.add('show');
+                refreshBtn.classList.add('show');
+                
+                // Update streak
+                let streak = localStorage.getItem('surpriseStreak') || 0;
+                const lastDate = localStorage.getItem('lastSurpriseDate');
+                const today = new Date().toDateString();
+                
+                if (lastDate !== today) {
+                    streak = parseInt(streak) + 1;
+                    localStorage.setItem('surpriseStreak', streak);
+                    localStorage.setItem('lastSurpriseDate', today);
+                    document.getElementById('streak').textContent = streak;
+                }
+                
+                displaySurprise();
+            }
+        }
+
+        function displaySurprise() {
+            const item = getRandomItem(allContent);
+            document.getElementById('emoji').textContent = item.emoji;
+            document.getElementById('message').textContent = item.message;
+            document.getElementById('category').textContent = item.category;
+        }
+
+        function newSurprise() {
+            displaySurprise();
+        }
+
+        function selectMood(btn) {
+            document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            
+            const mood = btn.dataset.mood;
+            localStorage.setItem('todayMood', mood);
+        }
+
+        // Initialize
+        document.getElementById('date').textContent = getDate();
+        
+        // Load streak
+        const streak = localStorage.getItem('surpriseStreak') || 0;
+        document.getElementById('streak').textContent = streak;
+        
+        // Check for saved mood today
+        const todayMood = localStorage.getItem('todayMood');
+        if (todayMood) {
+            const moodBtn = document.querySelector(`[data-mood="${todayMood}"]`);
+            if (moodBtn) moodBtn.classList.add('selected');
+        }
+    </script>
+</body>
+</html>
