@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 今日方向</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a1a2e 50%, #16213e 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 420px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 32px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        
+        .header h1 {
+            color: #fff;
+            font-size: 26px;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+        
+        .date {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+        
+        .focus-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 300% 300%;
+            animation: gradient 6s ease infinite;
+            border-radius: 20px;
+            padding: 28px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+        }
+        
+        .focus-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.4);
+        }
+        
+        .focus-box.revealed {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            animation: none;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .click-hint {
+            color: #fff;
+            font-size: 17px;
+            font-weight: 500;
+            opacity: 0.95;
+        }
+        
+        .focus-content {
+            display: none;
+        }
+        
+        .focus-content.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .emoji {
+            font-size: 52px;
+            margin-bottom: 14px;
+        }
+        
+        .category {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+        }
+        
+        .title {
+            color: #fff;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+        
+        .action {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 14px;
+        }
+        
+        .action-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        
+        .action-text {
+            color: #fff;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        .refresh-btn {
+            display: none;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: transform 0.2s ease;
+        }
+        
+        .refresh-btn.show {
+            display: block;
+        }
+        
+        .refresh-btn:hover {
+            transform: scale(1.02);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #f093fb;
+        }
+        
+        .stat-label {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 11px;
+            margin-top: 4px;
+        }
+        
+        .history {
+            margin-top: 20px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+        }
+        
+        .history h3 {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+        
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .history-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+        
+        .history-emoji {
+            font-size: 18px;
+        }
+        
+        .history-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+            flex: 1;
+        }
+        
+        .history-date {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 今日方向</h1>
+            <div class="date" id="date"></div>
+        </div>
+        
+        <div class="focus-box" id="focusBox" onclick="revealFocus()">
+            <div class="click-hint" id="clickHint">Click me! 👇</div>
+            <div class="focus-content" id="focusContent">
+                <div class="emoji" id="emoji"></div>
+                <span class="category" id="category"></span>
+                <div class="title" id="title"></div>
+                <div class="action">
+                    <div class="action-label">今日Action</div>
+                    <div class="action-text" id="actionText"></div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="refresh-btn" id="refreshBtn" onclick="newFocus()">Next Focus 🔄</button>
+        
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value" id="streak">0</div>
+                <div class="stat-label">日連續</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="total">0</div>
+                <div class="stat-label">總次數</div>
+            </div>
+        </div>
+        
+        <div class="history" id="historySection" style="display:none;">
+            <h3>最近</h3>
+            <div class="history-list" id="historyList"></div>
+        </div>
+    </div>
+
+    <script>
+        const focusAreas = [
+            {
+                emoji: "🤖",
+                category: "WOHAA",
+                title: "AI助手升級",
+                actions: [
+                    "研究OpenClaw新功能/技能",
+                    "優化早晨Brief自動化",
+                    "改善memory系統",
+                    "學一樣新skill (e.g. 語音/TTS)",
+                    "寫一個新既mini app"
+                ]
+            },
+            {
+                emoji: "💼",
+                category: "DLP Studio",
+                title: "搵項目/客戶",
+                actions: [
+                    "cold email 3間潛在客戶",
+                    "update website portfolio",
+                    "聯繫舊客問有冇項目",
+                    "出post / social media",
+                    "寫project proposal"
+                ]
+            },
+            {
+                emoji: "💰",
+                category: "投資理財",
+                title: "檢視Portfolio",
+                actions: [
+                    "check TQQQ/SPLG趨勢",
+                    "睇財經news找機會",
+                    "review risk management",
+                    "record transactions",
+                    "設定下次買入price"
+                ]
+            },
+            {
+                emoji: "🏠",
+                category: "Smart Home",
+                title: "HA優化",
+                actions: [
+                    "add新automation",
+                    "setup新sensor",
+                    "整dashboard widget",
+                    "test voice command",
+                    "研究新integration"
+                ]
+            },
+            {
+                emoji: "🎨",
+                category: "Art Toy",
+                title: "創作/品牌",
+                actions: [
+                    "generate character ideas",
+                    "draw/sketch新design",
+                    "research市場趨勢",
+                    "develop brand story",
+                    "create post素材"
+                ]
+            },
+            {
+                emoji: "📱",
+                category: "Bevetu",
+                title: "Marketing",
+                actions: [
+                    "寫social media post",
+                    "contact潛在partner",
+                    "優化landing page",
+                    "research competitor",
+                    "諗新feature ideas"
+                ]
+            },
+            {
+                emoji: "🔐",
+                category: "Financial Safety",
+                title: "Backup Plan",
+                actions: [
+                    "研究被動收入來源",
+                    "update CV/LinkedIn",
+                    "搵freelance機會",
+                    "建立新skill賺錢",
+                    "檢查儲蓄/緊急基金"
+                ]
+            },
+            {
+                emoji: "📚",
+                category: "Learning",
+                title: "自我提升",
+                actions: [
+                    "睇architectural trends",
+                    "學新design tool",
+                    "讀business/finance書",
+                    "睇YouTube學嘢",
+                    "寫learning notes"
+                ]
+            },
+            {
+                emoji: "🐕",
+                category: "Mui Mui",
+                title: "狗仔時間",
+                actions: [
+                    "整新toy/activity",
+                    "research狗 nutrition",
+                    "plan下次outing",
+                    "update狗仔profile",
+                    "錄video做memory"
+                ]
+            },
+            {
+                emoji: "⚡",
+                category: "Energy",
+                title: "精力管理",
+                actions: [
+                    "早起做運動20分鐘",
+                    "set Pomodoro專注",
+                    "plan下星期priority",
+                    "寫gratitude journal",
+                    "瞓覺quality check"
+                ]
+            }
+        ];
+
+        function getDate() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'short' };
+            return now.toLocaleDateString('zh-HK', options);
+        }
+
+        function getRandomItem(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function getToday() {
+            return new Date().toDateString();
+        }
+
+        function loadStats() {
+            const streak = localStorage.getItem('goalStreak') || 0;
+            const total = localStorage.getItem('goalTotal') || 0;
+            document.getElementById('streak').textContent = streak;
+            document.getElementById('total').textContent = total;
+            
+            // Load history
+            const history = JSON.parse(localStorage.getItem('goalHistory') || '[]');
+            if (history.length > 0) {
+                document.getElementById('historySection').style.display = 'block';
+                const historyList = document.getElementById('historyList');
+                historyList.innerHTML = history.slice(0, 3).map(item => `
+                    <div class="history-item">
+                        <span class="history-emoji">${item.emoji}</span>
+                        <span class="history-text">${item.title}</span>
+                        <span class="history-date">${item.date}</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function revealFocus() {
+            const box = document.getElementById('focusBox');
+            const hint = document.getElementById('clickHint');
+            const content = document.getElementById('focusContent');
+            const refreshBtn = document.getElementById('refreshBtn');
+            
+            if (!box.classList.contains('revealed')) {
+                box.classList.add('revealed');
+                hint.style.display = 'none';
+                content.classList.add('show');
+                refreshBtn.classList.add('show');
+                
+                // Update stats
+                const lastDate = localStorage.getItem('lastFocusDate');
+                const today = getToday();
+                let streak = parseInt(localStorage.getItem('goalStreak') || 0);
+                let total = parseInt(localStorage.getItem('goalTotal') || 0);
+                
+                if (lastDate !== today) {
+                    streak++;
+                    total++;
+                    localStorage.setItem('goalStreak', streak);
+                    localStorage.setItem('goalTotal', total);
+                    localStorage.setItem('lastFocusDate', today);
+                    
+                    // Save to history
+                    const current = displayFocus();
+                    const history = JSON.parse(localStorage.getItem('goalHistory') || '[]');
+                    history.unshift({ ...current, date: new Date().toLocaleDateString('zh-HK', { month: 'numeric', day: 'numeric' }) });
+                    localStorage.setItem('goalHistory', JSON.stringify(history.slice(0, 10)));
+                }
+                
+                document.getElementById('streak').textContent = streak;
+                document.getElementById('total').textContent = total;
+                displayFocus();
+                loadStats();
+            }
+        }
+
+        function displayFocus() {
+            const area = getRandomItem(focusAreas);
+            const action = getRandomItem(area.actions);
+            
+            document.getElementById('emoji').textContent = area.emoji;
+            document.getElementById('category').textContent = area.category;
+            document.getElementById('title').textContent = area.title;
+            document.getElementById('actionText').textContent = action;
+            
+            return { emoji: area.emoji, title: area.title, action, category: area.category };
+        }
+
+        function newFocus() {
+            displayFocus();
+        }
+
+        // Initialize
+        document.getElementById('date').textContent = getDate();
+        loadStats();
+    </script>
+</body>
+</html>
