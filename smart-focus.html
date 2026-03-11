@@ -266,6 +266,7 @@
         };
 
         // Task templates based on goals
+        // Updated: 2026-03-11 - Added CH340C/CC2652P coordinator tasks, land confidence display
         const taskTemplates = {
             wohaa: [
                 { title: "優化OpenClaw技能", desc: "你有提到想我變得更progressive，整一個新skill?", action: "諗下想學咩新技能", tags: ["goal", "learning"] },
@@ -289,7 +290,9 @@
             ],
             smarthome: [
                 { title: "ZHA Setup", desc: "你有CC2652P coordinator，setup ZHA integration?", action: "Check ZHA integration", tags: ["goal"] },
-                { title: "Powered USB Hub", desc: "CH340C coordinator需要powered hub防止干擾", action: "Research powered USB hubs", tags: ["learning"] },
+                { title: "CH340C Coordinator", desc: "你既CC2652P用CH340C chip，確認/dev/ttyUSB0 connection", action: "Verify USB serial connection", tags: ["goal", "reminder"] },
+                { title: "Powered USB Hub", desc: "CH340C coordinator需要powered hub防止干擾，research下邊隻好?", action: "Research powered USB hubs", tags: ["learning"] },
+                { title: "Interference Spacing", desc: "USB device擺放要避免干擾，check下你既setup", action: "Check device placement", tags: ["learning"] },
                 { title: "HA Automation", desc: "你有HA setup，整一個新automation?", action: "Create new automation", tags: ["goal", "learning"] },
                 { title: "Dashboard Update", desc: "你既dashboard可以加新widget", action: "Add widget", tags: ["reminder"] },
                 { title: "Voice Command Test", desc: "Test下你既voice commands", action: "Try a command", tags: ["reminder"] },
@@ -301,7 +304,8 @@
                 { title: "Property Research", desc: "你有`/land` command可以查香港樓", action: "Try /land command", tags: ["learning"] },
                 { title: "Confidence Score", desc: "你既`/land`有confidence display，理解下?", action: "Learn confidence metrics", tags: ["learning"] },
                 { title: "Address Parser", desc: "試下用`/land <address>`睇下parser效果", action: "Test address parsing", tags: ["learning"] },
-                { title: "District Analysis", desc: "睇下某區既樓價趨勢", action: "Analyze district data", tags: ["learning"] }
+                { title: "District Analysis", desc: "睇下某區既樓價趨勢", action: "Analyze district data", tags: ["learning"] },
+                { title: "MVP Features", desc: "你既`/land` MVP係auto-identification，test下?", action: "Test auto-ID feature", tags: ["goal", "learning"] }
             ],
             arttoy: [
                 { title: "Character Development", desc: "你有2個characters，develop多啲?", action: "Sketch new design", tags: ["goal", "learning"] },
@@ -319,7 +323,8 @@
                 { title: "Backup Plan", desc: "你提到2年內可能冇工，update你既backup plan", action: "Review backup plan", tags: ["goal", "reminder"] },
                 { title: "Skills Monetization", desc: "諗下點用你既skills搵錢", action: "List monetizable skills", tags: ["goal", "opportunity"] },
                 { title: "Emergency Fund", desc: "Check你既儲蓄/緊急基金", action: "Review savings", tags: ["reminder"] },
-                { title: "Freelance Opportunities", desc: "搵下freelance/consulting機會", action: "Search opportunities", tags: ["opportunity"] }
+                { title: "Freelance Opportunities", desc: "搵下freelance/consulting機會", action: "Search opportunities", tags: ["opportunity"] },
+                { title: "工作模式回顧", desc: "你既工作模式: plan→wait approval→execute→report→persist", action: "Review workflow", tags: ["learning"] }
             ]
         };
 
