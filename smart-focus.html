@@ -256,6 +256,7 @@
                 { id: "investment", name: "Investment", emoji: "💰", priority: "medium" },
                 { id: "smarthome", name: "Smart Home", emoji: "🏠", priority: "medium" },
                 { id: "arttoy", name: "Art Toy", emoji: "🎨", priority: "low" },
+                { id: "bevetu", name: "Bevetu CPO", emoji: "🐕", priority: "low" },
                 { id: "safety", name: "Financial Safety", emoji: "🔐", priority: "high" },
                 { id: "land", name: "HK Property", emoji: "🏢", priority: "low" }
             ],
@@ -269,8 +270,10 @@
             wohaa: [
                 { title: "優化OpenClaw技能", desc: "你有提到想我變得更progressive，整一個新skill?", action: "諗下想學咩新技能", tags: ["goal", "learning"] },
                 { title: "檢查系統狀態", desc: "睇下OpenClaw version同有冇新features", action: "Run openclaw status", tags: ["reminder"] },
+                { title: "Morning Brief優化", desc: "你既Morning Brief系統最近有更新，改進啲咩?", action: "Review morning brief", tags: ["goal"] },
                 { title: "改善自動化", desc: "你提過想改善morning brief流程", action: "睇下可以點改進", tags: ["goal"] },
-                { title: "學新工具", desc: "Research一樣新既AI tools可以幫到你", action: "Search for new AI tools", tags: ["learning"] }
+                { title: "學新工具", desc: "Research一樣新既AI tools可以幫到你", action: "Search for new AI tools", tags: ["learning"] },
+                { title: "Cron Job優化", desc: "你有cron jobs，檢查下既schedules?", action: "Review cron jobs", tags: ["reminder"] }
             ],
             dlp: [
                 { title: "Portfolio Update", desc: "你既DLP Portfolio 3日冇update喇", action: "Update project status", tags: ["reminder"] },
@@ -285,24 +288,32 @@
                 { title: "Research", desc: "睇下有冇新既investment ideas", action: "Read market news", tags: ["learning"] }
             ],
             smarthome: [
+                { title: "ZHA Setup", desc: "你有CC2652P coordinator，setup ZHA integration?", action: "Check ZHA integration", tags: ["goal"] },
+                { title: "Powered USB Hub", desc: "CH340C coordinator需要powered hub防止干擾", action: "Research powered USB hubs", tags: ["learning"] },
                 { title: "HA Automation", desc: "你有HA setup，整一個新automation?", action: "Create new automation", tags: ["goal", "learning"] },
                 { title: "Dashboard Update", desc: "你既dashboard可以加新widget", action: "Add widget", tags: ["reminder"] },
                 { title: "Voice Command Test", desc: "Test下你既voice commands", action: "Try a command", tags: ["reminder"] },
                 { title: "New Device", desc: "研究下可以加入既新智能設備", action: "Research devices", tags: ["learning"] },
-                { title: "ZHA Setup", desc: "你有CC2652P coordinator，setting up ZHA?", action: "Check ZHA integration", tags: ["goal"] },
-                { title: "USB Hub", desc: "CH340C USB coordinator需要powered hub", action: "Research powered USB hubs", tags: ["learning"] },
-                { title: "HA Backup", desc: "你既HA用Docker整，setting up backup?", action: "Configure HA backup", tags: ["goal", "reminder"] }
+                { title: "HA Backup", desc: "你既HA用Docker整，setting up backup?", action: "Configure HA backup", tags: ["goal", "reminder"] },
+                { title: "Tailscale Access", desc: "Remote access你既HA via Tailscale", action: "Check Tailscale connection", tags: ["reminder"] }
             ],
             land: [
                 { title: "Property Research", desc: "你有`/land` command可以查香港樓", action: "Try /land command", tags: ["learning"] },
-                { title: "Land Data Analysis", desc: "睇下你可以點用land data做分析", action: "Explore data fields", tags: ["learning"] },
                 { title: "Confidence Score", desc: "你既`/land`有confidence display，理解下?", action: "Learn confidence metrics", tags: ["learning"] },
-                { title: "Address Parser", desc: "試下用`/land <address>`睇下parser效果", action: "Test address parsing", tags: ["learning"] }
+                { title: "Address Parser", desc: "試下用`/land <address>`睇下parser效果", action: "Test address parsing", tags: ["learning"] },
+                { title: "District Analysis", desc: "睇下某區既樓價趨勢", action: "Analyze district data", tags: ["learning"] }
             ],
             arttoy: [
                 { title: "Character Development", desc: "你有2個characters，develop多啲?", action: "Sketch new design", tags: ["goal", "learning"] },
                 { title: "Market Research", desc: "睇下art toy market trends", action: "Research trends", tags: ["learning"] },
-                { title: "Branding", desc: "Develop你既art toy brand story", action: "Write brand story", tags: ["goal"] }
+                { title: "Branding", desc: "Develop你既art toy brand story", action: "Write brand story", tags: ["goal"] },
+                { title: "AI Enhancement", desc: "用AI幫手改進你既characters", action: "Try AI sketch tools", tags: ["learning"] }
+            ],
+            bevetu: [
+                { title: "CPO Review", desc: "Bevetu寵物健康App 你係CPO，檢查下进度?", action: "Check app status", tags: ["reminder"] },
+                { title: "Branding Focus", desc: "團隊唔積極，你focus係branding/marketing?", action: "Develop marketing plan", tags: ["goal", "opportunity"] },
+                { title: "Minimal Investment", desc: "你話最少投入，check下current spend", action: "Review investment", tags: ["reminder"] },
+                { title: "User Research", desc: "研究下寵物健康app既user needs", action: "Research user personas", tags: ["learning"] }
             ],
             safety: [
                 { title: "Backup Plan", desc: "你提到2年內可能冇工，update你既backup plan", action: "Review backup plan", tags: ["goal", "reminder"] },
