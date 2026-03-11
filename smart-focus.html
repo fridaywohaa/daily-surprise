@@ -267,6 +267,7 @@
 
         // Task templates based on goals
         // Updated: 2026-03-11 - Added CH340C/CC2652P coordinator tasks, land confidence display
+        // 2026-03-11 - Added ClawPal/OpenClaw v0.3.0 study, communication preference tasks
         const taskTemplates = {
             wohaa: [
                 { title: "優化OpenClaw技能", desc: "你有提到想我變得更progressive，整一個新skill?", action: "諗下想學咩新技能", tags: ["goal", "learning"] },
@@ -274,7 +275,9 @@
                 { title: "Morning Brief優化", desc: "你既Morning Brief系統最近有更新，改進啲咩?", action: "Review morning brief", tags: ["goal"] },
                 { title: "改善自動化", desc: "你提過想改善morning brief流程", action: "睇下可以點改進", tags: ["goal"] },
                 { title: "學新工具", desc: "Research一樣新既AI tools可以幫到你", action: "Search for new AI tools", tags: ["learning"] },
-                { title: "Cron Job優化", desc: "你有cron jobs，檢查下既schedules?", action: "Review cron jobs", tags: ["reminder"] }
+                { title: "Cron Job優化", desc: "你有cron jobs，檢查下既schedules?", action: "Review cron jobs", tags: ["reminder"] },
+                { title: "ClawPal Study", desc: "你想學OpenClaw v0.3.0同ClawPal desktop app，用黎做「Claws Help Claws」?", action: "Study ClawPal features", tags: ["goal", "learning"] },
+                { title: "簡潔溝通", desc: "你偏好短reply (1-3行)、結論先行，試下用呢個style?", action: "Practice concise replies", tags: ["learning"] }
             ],
             dlp: [
                 { title: "Portfolio Update", desc: "你既DLP Portfolio 3日冇update喇", action: "Update project status", tags: ["reminder"] },
