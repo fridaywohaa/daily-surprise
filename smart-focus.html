@@ -266,7 +266,8 @@
         };
 
         // Task templates based on goals
-        // Updated: 2026-03-13 16:03 (Hourly Cron) - Added local delivery preference, Apple Calendar fix priority, location-aware reminders
+        // Updated: 2026-03-14 12:58 (Hourly Cron) - Added Calendar SQLite sync bypass task, AppleScript timeout issue
+        // 2026-03-13 16:03 (Hourly Cron) - Added local delivery preference, Apple Calendar fix priority, location-aware reminders
 // 2026-03-13 08:07 (Hourly Cron) - Reviewed Mar 11-12 memory: no new goals found. Mar 10 items already in templates.
 // 2026-03-12 - Added Morning Brief reliability tasks, umbrella decision threshold
         // 2026-03-11 - Added CH340C/CC2652P coordinator tasks, land confidence display
@@ -300,6 +301,7 @@
                 { title: "Research", desc: "睇下有冇新既investment ideas", action: "Read market news", tags: ["learning"] }
             ],
             smarthome: [
+                { title: "Apple Calendar Sync Issue", desc: "Direct SQLite writes to Calendar.sqlitedb bypass sync - rows don't appear in Calendar.app. AppleScript writes freeze/timeout.", action: "Investigate alternative calendar sync methods", tags: ["goal", "reminder"] },
                 { title: "Apple Calendar Write Fix", desc: "Priority: 修復Calendar寫入workflow (direct SQLite bypass sync, AppleScript timeout)", action: "Investigate calendar write solutions", tags: ["goal", "reminder"] },
                 { title: "Location Reminders", desc: "你interest in location-based reminders via Mac mini/Find My/Family Sharing", action: "Research location detection options", tags: ["learning", "opportunity"] },
                 { title: "ZHA Setup", desc: "你有CC2652P coordinator，setup ZHA integration?", action: "Check ZHA integration", tags: ["goal"] },
